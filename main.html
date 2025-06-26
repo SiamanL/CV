@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Pișcenco - Dezvoltator Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2c3e50);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .resume-container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .corner-decoration {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid #3498db;
+            opacity: 0.1;
+        }
+        
+        .top-left {
+            top: -30px;
+            left: -30px;
+            border-bottom: none;
+            border-right: none;
+        }
+        
+        .bottom-right {
+            bottom: -30px;
+            right: -30px;
+            border-top: none;
+            border-left: none;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #2c3e50, #1a2a6c);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .name-title {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .name {
+            font-size: 2.7rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .title {
+            font-size: 1.6rem;
+            font-weight: 400;
+            opacity: 0.9;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .personal-info {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.1);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 700px;
+            margin: 30px auto 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        .contact-item i {
+            font-size: 1.3rem;
+            color: #3498db;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 40px;
+        }
+        
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .section {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #3498db;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, #3498db, #1a2a6c);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .section:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .section-title i {
+            color: #3498db;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(52, 152, 219, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover .section-title i {
+            transform: rotate(10deg);
+            background: rgba(52, 152, 219, 0.2);
+        }
+        
+        .about-text {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .about-text::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: #3498db;
+            border-radius: 10px;
+        }
+        
+        .highlight {
+            background: linear-gradient(to right, #e3f2fd, #bbdefb);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .skill-category {
+            margin-bottom: 25px;
+        }
+        
+        .skill-category h3 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .skill-category h3 i {
+            color: #3498db;
+            font-size: 1.1rem;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-item {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-item:hover {
+            background: #bbdefb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .skill-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #3498db;
+        }
+        
+        .timeline-item {
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #3498db;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: #3498db;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .timeline-date i {
+            font-size: 0.9rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .timeline-subtitle {
+            font-style: italic;
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .timeline-subtitle i {
+            font-size: 0.9rem;
+        }
+        
+        .timeline-description {
+            font-size: 0.95rem;
+            padding-left: 5px;
+        }
+        
+        .languages-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .language-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .language-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .language-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #3498db;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .language-item:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .language-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+        
+        .language-level {
+            color: #3498db;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .project-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .project-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .project-item::before {
+            content: '➤';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            color: #3498db;
+            font-size: 1.2rem;
+        }
+        
+        .project-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .project-tech {
+            font-size: 0.9rem;
+            color: #3498db;
+            margin-bottom: 10px;
+            font-weight: 500;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .project-tech span {
+            background: #e3f2fd;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+        
+        .project-description {
+            font-size: 0.95rem;
+        }
+        
+        .goals-list {
+            padding-left: 20px;
+        }
+        
+        .goal-item {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .goal-item::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-size: 1.2rem;
+            top: -2px;
+            font-weight: bold;
+        }
+        
+        .certificate-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-left: 3px solid #3498db;
+            margin-bottom: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .certificate-item:hover {
+            transform: scale(1.02);
+        }
+        
+        .certificate-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .certificate-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .certificate-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin: 0 auto 15px;
+            display: block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .certificate-image:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        .image-note {
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-section {
+            flex: 1;
+            padding: 0 15px;
+            text-align: left;
+        }
+        
+        .footer-section-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #3498db;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .footer-contact {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-contact i {
+            color: #3498db;
+            width: 24px;
+        }
+        
+        .interests-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .interest-item {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .interest-item:hover {
+            background: #bbdefb;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .interest-item i {
+            color: #3498db;
+        }
+        
+        .skill-bar-container {
+            margin-top: 10px;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: #3498db;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 900px) {
+            .content {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+            
+            .name {
+                font-size: 2.2rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .languages-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .corner-decoration {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .name {
+                font-size: 1.8rem;
+            }
+            
+            .title {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .footer-contact {
+                font-size: 0.8rem;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+        
+        <header class="header">
+            <div class="header-content">
+                <div class="name-title">
+                    <h1 class="name">Simon Pișcenco</h1>
+                    <p class="title">Dezvoltator Python</p>
+                    <div class="personal-info">15 ani, Chișinău, Moldova</div>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>simon.piscenco@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+373 782 766 14</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Chișinău, Moldova</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <main class="content">
+            <div class="column">
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Despre mine</h2>
+                    <p class="about-text">
+                        Tânăr dezvoltator Python motivat cu 3 ani de experiență în studierea limbajului. Sunt elev la liceu, unde disciplinele principale sunt predate în limba engleză. Am abilități practice în lucrul cu Python, inclusiv dezvoltarea de aplicații cu interfață grafică, lucrul cu biblioteci matematice și crearea de vizualizări de date. Caut oportunitatea de a obține prima experiență profesională în domeniul IT.
+                    </p>
+                </section>
+                
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Educație</h2>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-date"><i class="fas fa-calendar-alt"></i> 2017 - prezent</div>
+                        <h3 class="timeline-title">Liceul Teoretic "Orizont"</h3>
+                        <p class="timeline-subtitle"><i class="fas fa-map-marker-alt"></i> Chișinău, Moldova</p>
+                        <p class="timeline-description">
+                            9 clase. Învățământ în limba engleză cu accent pe disciplinele profilului "real" (matematică, fizică, informatică).
+                        </p>
+                    </div>
+                </section>
+                
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-certificate"></i> Certificate</h2>
+                    
+                    <div class="certificate-item">
+                        <div class="certificate-title">Diplomă în Programare Python (Junior)</div>
+                        <div class="certificate-date"><i class="fas fa-calendar"></i> 10 decembrie 2023</div>
+                        
+                        <img src="Diploma Programming on Python - Junior Pișcenco Simon.jpg" 
+                             alt="Diplomă Python Junior" 
+                             class="certificate-image">
+                    </div>
+                    
+                    <div class="certificate-item">
+                        <div class="certificate-title">Bazele Python</div>
+                        <div class="certificate-date"><i class="fas fa-calendar"></i> Decembrie 2023</div>
+                        <p class="certificate-description">
+                            Curs finalizat cu succes pe algoritmi de bază Python.
+                        </p>
+                    </div>
+                </section>
+                
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-project-diagram"></i> Proiecte</h2>
+                    
+                    <div class="project-item">
+                        <h3 class="project-title"><i class="fab fa-telegram"></i> Bot Telegram pentru prognoza meteo</h3>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>API Telegram</span>
+                            <span>WeatherAPI</span>
+                            <span>JSON</span>
+                        </div>
+                        <p class="project-description">
+                            Bot care oferă vremea curentă și prognoza pentru orice oraș. Utilizatorii trimit numele orașului, iar botul returnează informații detaliate despre temperatură, umiditate, viteză a vântului și prognoză pentru zilele următoare. Implementat caching pentru optimizare.
+                        </p>
+                    </div>
+                    
+                    <div class="project-item">
+                        <h3 class="project-title"><i class="fas fa-chart-line"></i> Calculator de funcții și constructor de grafice</h3>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>customtkinter</span>
+                            <span>matplotlib</span>
+                            <span>numpy</span>
+                        </div>
+                        <p class="project-description">
+                            Aplicație cu interfață grafică pentru calcularea funcțiilor matematice și construirea graficelor. Suportă operații matematice de bază, funcții trigonometrice și vizualizarea rezultatelor. Implementat exportul graficelor în formate PNG și PDF.
+                        </p>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="column">
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-code"></i> Competențe</h2>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h3><i class="fab fa-python"></i> Tehnologii Python</h3>
+                            <div class="skill-list">
+                                <div class="skill-item">Python</div>
+                                <div class="skill-item">API Telegram</div>
+                                <div class="skill-item">customtkinter</div>
+                                <div class="skill-item">requests</div>
+                                <div class="skill-item">POO</div>
+                                <div class="skill-item">JSON</div>
+                                <div class="skill-item">matplotlib</div>
+                                <div class="skill-item">numpy</div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3><i class="fas fa-globe"></i> Tehnologii Web</h3>
+                            <div class="skill-list">
+                                <div class="skill-item">HTTP/HTTPS</div>
+                                <div class="skill-item">Interacțiune API</div>
+                                <div class="skill-item">JSON</div>
+                                <div class="skill-item">Web Scraping</div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3><i class="fas fa-tools"></i> Instrumente</h3>
+                            <div class="skill-list">
+                                <div class="skill-item">VS Code</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-language"></i> Limbi</h2>
+                    <div class="languages-container">
+                        <div class="language-item">
+                            <div class="language-name">Rusă</div>
+                            <div class="language-level">Limba maternă</div>
+                        </div>
+                        
+                        <div class="language-item">
+                            <div class="language-name">Română</div>
+                            <div class="language-level">Nivel mediu</div>
+                        </div>
+                        
+                        <div class="language-item">
+                            <div class="language-name">Engleză</div>
+                            <div class="language-level">Mediu (B1-B2)</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-bullseye"></i> Obiective</h2>
+                    
+                    <ul class="goals-list">
+                        <li class="goal-item">Obținerea primei experiențe profesionale într-o companie IT</li>
+                        <li class="goal-item">Aprofundarea cunoștințelor de Python sub îndrumarea dezvoltatorilor experimentați</li>
+                        <li class="goal-item">Stăpânirea cadrelor moderne și a instrumentelor de dezvoltare</li>
+                        <li class="goal-item">Dezvoltarea abilităților de lucru în echipă la proiecte reale</li>   
+                    </ul>
+                </section>
+                
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-lightbulb"></i> De ce sunt potrivit</h2>
+                    
+                    <div class="timeline-item">
+                        <p class="timeline-description">
+                            <span class="highlight">Motivație pentru învățare:</span> Sunt pregătit să învăț intensiv și să stăpânesc rapid tehnologii noi.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <p class="timeline-description">
+                            <span class="highlight">Competențe practice:</span> Am deja experiență în crearea de aplicații funcționale în Python.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <p class="timeline-description">
+                            <span class="highlight">Bază matematică:</span> Bună înțelegere a matematicii, importantă pentru programare.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <p class="timeline-description">
+                            <span class="highlight">Responsabilitate:</span> Abordez cu seriozitate sarcini și respectarea termenelor.
+                        </p>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <p class="timeline-description">
+                            <span class="highlight">Adaptabilitate:</span> Mă adaptez rapid la instrumente și tehnologii noi.
+                        </p>
+                    </div>
+                </section>
+                
+                <section class="section">
+                    <h2 class="section-title"><i class="fas fa-heart"></i> Interese</h2>
+                    
+                    <div class="interests-container">
+                        <div class="interest-item"><i class="fas fa-laptop-code"></i> Programare</div>
+                        <div class="interest-item"><i class="fas fa-music"></i> Muzică</div>
+                        <div class="interest-item"><i class="fas fa-running"></i> Sport</div>
+                        <div class="interest-item"><i class="fas fa-calculator"></i> Matematică</div>
+                        <div class="interest-item"><i class="fas fa-robot"></i> Inteligență artificială</div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-section-title"><i class="fas fa-user-clock"></i> Disponibilitate</h3>
+                    <p class="footer-contact"><i class="fas fa-laptop-house"></i> Pregătit pentru muncă la distanță</p>
+                    <p class="footer-contact"><i class="fas fa-clock"></i> Normă parțială</p>
+                    <p class="footer-contact"><i class="fas fa-graduation-cap"></i> Pregătit pentru învățare și stagiu</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const name = document.querySelector('.name');
+            setTimeout(() => {
+                name.style.opacity = '1';
+                name.style.transform = 'translateY(0)';
+            }, 300);
+            
+            const certificateImage = document.querySelector('.certificate-image');
+            if (certificateImage) {
+                certificateImage.addEventListener('click', function() {
+                    if (this.style.maxHeight === 'none') {
+                        this.style.maxHeight = '300px';
+                        this.style.cursor = 'pointer';
+                    } else {
+                        this.style.maxHeight = 'none';
+                        this.style.cursor = 'zoom-out';
+                    }
+                });
+            }
+            
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+            });
+        });
+    </script>
+</body>
+</html>
